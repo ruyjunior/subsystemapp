@@ -1,0 +1,33 @@
+/* Reset */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+/* Layout principal */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Altura total da viewport */
+}
+
+/* Conteúdo principal */
+.main-content {
+  flex: 1;
+  margin-left: 250px; /* Espaço reservado para a Sidebar */
+  padding: 20px;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+  min-height: calc(100vh - 60px); /* Altura disponível menos o Header */
+  display: flex;
+  flex-direction: column;
+}
+/* Layout principal (Sidebar e Conteúdo) */
+.main-layout {
+  display: flex;
+  flex: 1;
+  margin-top: 60px; /* Espaço para o Header fixo */
+  overflow: hidden;
+}

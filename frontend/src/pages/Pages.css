@@ -1,0 +1,11 @@
+.pages{
+    display: flex;
+    flex: 1;
+    margin-top: 60px; /* Espaço para o Header fixo */
+    overflow: hidden;
+    margin-left: 110px;
+    background-color:rgb(143, 128, 128);
+    flex-direction: column;
+    min-height: calc(90vh - 60px); /* Altura disponível menos o Header */
+    padding-left: 20px;
+}

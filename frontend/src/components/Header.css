@@ -1,0 +1,32 @@
+.header {
+  background-color: #007bff;
+  color: white;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 101;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-bottom: 5px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+}
+  
+  .notifications {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  .header-left h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  .header-right span {
+    font-size: 16px;
+    color: white;
+    padding-right: 50px;
+  }

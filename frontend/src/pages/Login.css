@@ -1,0 +1,61 @@
+/* Estilização da página de login */
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+form input {
+  margin: 10px 0;
+  padding: 10px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilização do botão de logout */
+.logout-container {
+  margin-top: 20px;
+  text-align: center;
+  width: 100%; /* Garante alinhamento central */
+}
+
+.logout-button {
+  padding: 10px 20px;
+  background-color: #dc3545; /* Vermelho para logout */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  width: 200px; /* Mesmo tamanho dos botões no formulário */
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #a71d2a;
+}
+.logout-mensage{
+ font-size: 20px;
+  padding-bottom: 10px;
+}

@@ -1,0 +1,14 @@
+.footer {
+  background-color: #f1f1f1;
+  text-align: center;
+  padding: 0px;
+  border-top: 5px solid #ddd;
+  position: relative; /* Relativo ao fluxo do conteúdo */
+  height: 60px;
+}
+  
+  .footer a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
