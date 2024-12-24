@@ -1,4 +1,4 @@
-import './Login.css'; // Importa o arquivo de estilos
+import './styles/Login.css'; // Importa o arquivo de estilos
 import React, { useState } from 'react';
 import axios from 'axios';
 

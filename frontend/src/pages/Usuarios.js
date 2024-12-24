@@ -1,42 +1,6 @@
-/*import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './Usuarios.css'; // Se precisar de estilização
-
-const Usuarios = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  const [usuarios, setUsuarios] = useState([]);
-  const [error, setError] = useState('');
-  useEffect(() => {
-    const fetchUsuarios = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/usuarios', {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-        });
-        setUsuarios(response.data);
-        console.log(usuarios);
-      } catch (err) {
-        setError('Erro ao carregar os usuários.');
-      }
-    };
-
-    fetchUsuarios();
-  }, []);
-
-  return (
-    <div className="pages">
-        <h1>Usuarios</h1>
-        {user.level === 'admin' && <p>Acesso avançado aos Usuários.</p>}
-        {user.level === 'oper' && <p>Visualização básica de Usuários.</p>}
-    </div> 
-  );
-};
-
-export default Usuarios;    */
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Usuarios.css'; // Se precisar de estilização
+import './styles/Usuarios.css'; // Se precisar de estilização
 
 function Usuarios() {
   const [usuarios, setUsuarios] = useState([]);

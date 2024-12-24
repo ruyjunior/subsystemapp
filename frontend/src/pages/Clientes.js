@@ -1,5 +1,5 @@
 import React from 'react';
-import './Pages.css';
+import './styles/Pages.css';
 
 const Clientes = () => {
   const user = JSON.parse(localStorage.getItem('user'));
