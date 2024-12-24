@@ -16,4 +16,44 @@ router.get('/usuarios', async (req, res) => {
   }
 });
 
+// Criar um novo usuário
+router.post('/usuarios', async (req, res) => {
+  const { username, name, level, password } = req.body;
+  try {
+    const query = 'INSERT INTO usuarios (username, name, level, password) VALUES (?, ?, ?, ?)';
+    const [result] = await db.promise().execute(query, [username, name, level, password]);
+    res.status(201).json({ message: 'Usuário criado com sucesso.', userId: result.insertId });
+  } catch (err) {
+    console.error('Erro ao criar usuário:', err);
+    res.status(500).json({ message: 'Erro ao criar usuário.' });
+  }
+});
+
+// Atualizar um usuário
+router.put('/usuarios/:id', async (req, res) => {
+  const { id } = req.params;
+  const { username, name, level, password } = req.body;
+  try {
+    const query = 'UPDATE usuarios SET username = ?, name = ?, level = ?, password = ? WHERE id = ?';
+    await db.promise().execute(query, [username, name, level, password, id]);
+    res.json({ message: 'Usuário atualizado com sucesso.' });
+  } catch (err) {
+    console.error('Erro ao atualizar usuário:', err);
+    res.status(500).json({ message: 'Erro ao atualizar usuário.' });
+  }
+});
+
+// Deletar um usuário
+router.delete('/usuarios/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const query = 'DELETE FROM usuarios WHERE id = ?';
+    await db.promise().execute(query, [id]);
+    res.json({ message: 'Usuário deletado com sucesso.' });
+  } catch (err) {
+    console.error('Erro ao deletar usuário:', err);
+    res.status(500).json({ message: 'Erro ao deletar usuário.' });
+  }
+});
+
 module.exports = router;

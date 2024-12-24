@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
-
 import Dashboard from './pages/Dashboard';
 import Propostas from './pages/Propostas';
 import Apolices from './pages/Apolices';
@@ -59,7 +59,7 @@ function App() {
         <Route path="/propostas"    element={ <PrivateRoute> <Propostas /> </PrivateRoute>} />
         <Route path="/apolices"     element={ <PrivateRoute> <Apolices  /> </PrivateRoute>} />
         <Route path="/clientes"     element={ <PrivateRoute> <Clientes/>   </PrivateRoute>} />
-        <Route path="/usuarios"     element={ <PrivateRoute> <Usuarios  /> </PrivateRoute>} />
+        <Route path="/usuarios"     element={ <PrivateRoute> <Usuarios currentUser={user}  /> </PrivateRoute>} />
         <Route path="/"             element={ <PrivateRoute> <Dashboard /> </PrivateRoute>} />
         </Routes>
       </PageLayout>
