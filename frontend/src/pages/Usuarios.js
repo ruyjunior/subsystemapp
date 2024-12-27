@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import axios from 'axios';
 import './styles/Usuarios.css'; 
 //import UserList from '../components/UserList';
@@ -26,6 +27,7 @@ function Usuarios() {
       setError('Erro ao carregar os usuários.');
     }
   };
+
   const handleDelete = async (id) => {
     try {
       await UserService.deleteUser(id);
@@ -41,11 +43,11 @@ function Usuarios() {
   
   const handleEdit = (user) => {
     setUserToEdit(user);
-    console.log(userToEdit);
   };
 
   const handleSave = () => {
     setUserToEdit(null);
+    fetchUsers();
   };
     
   return (
@@ -66,6 +68,7 @@ function Usuarios() {
             <th>ID</th>
             <th>Usuário</th>
             <th>Nome</th>
+            <th>CPF</th>
             <th>Nível</th>
             <th>Controle</th>
           </tr>
@@ -76,6 +79,7 @@ function Usuarios() {
               <td>{user.id}</td>
               <td>{user.username}</td>
               <td>{user.name}</td>
+              <td>{user.cpf}</td>
               <td>{user.level}</td>
               <td>
                 {currentUser.level === 'admin' || currentUser.id === user.id ? (  <>

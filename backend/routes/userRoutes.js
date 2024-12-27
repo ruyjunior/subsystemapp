@@ -5,7 +5,7 @@ const db = require('../services/dbService'); // Importa o serviço de banco de d
 // Rota para buscar usuários
 router.get('/usuarios', async (req, res) => {
   try {
-    const query = 'SELECT id, username, name, level FROM usuarios';
+    const query = 'SELECT id, username, name, level, cpf FROM users';
     const [users] = await db.promise().execute(query);
 
     res.json(users);
@@ -18,10 +18,10 @@ router.get('/usuarios', async (req, res) => {
 
 // Criar um novo usuário
 router.post('/usuarios', async (req, res) => {
-  const { username, name, level, password } = req.body;
+  const { username, name, level, password, cpf } = req.body;
   try {
-    const query = 'INSERT INTO usuarios (username, name, level, password) VALUES (?, ?, ?, ?)';
-    const [result] = await db.promise().execute(query, [username, name, level, password]);
+    const query = 'INSERT INTO users (username, name, level, password, cpf) VALUES (?, ?, ?, ?, ?)';
+    const [result] = await db.promise().execute(query, [username, name, level, password, cpf ]);
     res.status(201).json({ message: 'Usuário criado com sucesso.', userId: result.insertId });
   } catch (err) {
     console.error('Erro ao criar usuário:', err);
@@ -32,10 +32,10 @@ router.post('/usuarios', async (req, res) => {
 // Atualizar um usuário
 router.put('/usuarios/:id', async (req, res) => {
   const { id } = req.params;
-  const { username, name, level, password } = req.body;
+  const { username, name, level, password, cpf } = req.body;
   try {
-    const query = 'UPDATE usuarios SET username = ?, name = ?, level = ?, password = ? WHERE id = ?';
-    await db.promise().execute(query, [username, name, level, password, id]);
+    const query = 'UPDATE users SET username = ?, name = ?, level = ?, password = ?, cpf = ? WHERE id = ?';
+    await db.promise().execute(query, [username, name, level, password, cpf, id]);
     res.json({ message: 'Usuário atualizado com sucesso.' });
   } catch (err) {
     console.error('Erro ao atualizar usuário:', err);
@@ -47,7 +47,7 @@ router.put('/usuarios/:id', async (req, res) => {
 router.delete('/usuarios/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const query = 'DELETE FROM usuarios WHERE id = ?';
+    const query = 'DELETE FROM users WHERE id = ?';
     await db.promise().execute(query, [id]);
     res.json({ message: 'Usuário deletado com sucesso.' });
   } catch (err) {
