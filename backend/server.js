@@ -17,6 +17,11 @@ app.use('/api', authRoutes);
 const userRoutes = require('./routes/userRoutes'); 
 app.use('/api', userRoutes);
 
+// Rotas de clientes
+const clientsRoutes = require('./routes/clientsRoutes'); 
+app.use('/api', clientsRoutes);
+
+
 // Iniciar o servidor
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);

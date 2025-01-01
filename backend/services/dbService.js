@@ -5,7 +5,9 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'admin', // Seu usuário do MySQL
   password: 'admin', // Sua senha do MySQL
-  database: 'subsystem' // Nome do banco de dados
+  database: 'subsystem', // Nome do banco de dados
+  timezone: 'local',
+  dateStrings: true
 });
 
 // Verificar conexão
