@@ -1,4 +1,4 @@
-.usuarios-page {
+.policies-page {
     padding: 20px;
     display: flex;
     flex: 1;
@@ -11,20 +11,20 @@
     padding-left: 20px;
   }
   
-  .usuarios-table {
+  .policies-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
   }
   
-  .usuarios-table th,
-  .usuarios-table td {
+  .policies-table th,
+  .policies-table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
   }
   
-  .usuarios-table th {
+  .policies-table th {
     background-color: #f4f4f4;
   }
   

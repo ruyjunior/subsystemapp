@@ -10,7 +10,7 @@ router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const query = 'SELECT * FROM usuarios WHERE username = ?';
+    const query = 'SELECT * FROM users WHERE username = ?';
     const [users] = await db.promise().execute(query, [username]);
 
     if (users.length === 0) {

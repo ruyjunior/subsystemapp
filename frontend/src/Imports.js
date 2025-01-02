@@ -6,10 +6,10 @@ export { default as PageLayout } from './components/PageLayout';
 
 //Páginas
 export { default as Dashboard } from './pages/Dashboard';
-export { default as Propostas } from './pages/Propostas';
-export { default as Apolices } from './pages/Apolices';
-export { default as Clientes } from './pages/Clientes';
-export { default as Usuarios } from '../pages/Usuarios';
+export { default as Proposals } from './pages/Proposals';
+export { default as Policies } from './pages/Policies';
+export { default as Clients } from './pages/Clients';
+export { default as Users } from '../pages/Users';
 export { default as Login } from './pages/Login';
 
 //Serviços

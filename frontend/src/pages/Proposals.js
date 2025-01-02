@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles/Pages.css';
 
-const Propostas = () => {
+const Proposals = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   return (
     <div className="pages">
@@ -12,4 +12,4 @@ const Propostas = () => {
   );
 };
 
-export default Propostas;
+export default Proposals;

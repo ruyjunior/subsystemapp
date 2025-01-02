@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './styles/Clientes.css'; 
+import './styles/Clients.css'; 
 import ClientForm from '../components/ClientForm';
 import ClientService from '../services/ClientService';
 
-const API_URL = 'http://localhost:5000/api/clientes';
+const API_URL = 'http://localhost:5000/api/clients';
 
-function Clientes() {
+function Clients() {
   const currentUser = JSON.parse(localStorage.getItem('user'));
   const [clients, setClients] = useState([]);
   const [clientToEdit, setClientToEdit] = useState(null);
@@ -46,9 +46,8 @@ function Clientes() {
   };
     
   return (
-    <div className="clientes-page">
-      <h1>Novo Cliente</h1>
-
+    <div className="clients-page">
+      <h1>CLIENTES</h1>
       {currentUser.level === 'admin' ? (  <>
       <ClientForm clientToEdit={clientToEdit} onSave={handleSave} />
       </>) : (
@@ -57,7 +56,7 @@ function Clientes() {
 
       <h1>Controle de Clientes</h1>
       {error && <p className="error-message">{error}</p>}
-      <table className="clientes-table">
+      <table className="clients-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -108,4 +107,4 @@ function Clientes() {
   );
 }
 
-export default Clientes;
+export default Clients;

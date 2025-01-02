@@ -1,4 +1,4 @@
-.clientes-page {
+.users-page {
     padding: 20px;
     display: flex;
     flex: 1;
@@ -11,20 +11,20 @@
     padding-left: 20px;
   }
   
-  .clientes-table {
+  .users-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
   }
   
-  .clientes-table th,
-  .clientes-table td {
+  .users-table th,
+  .users-table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
   }
   
-  .clientes-table th {
+  .users-table th {
     background-color: #f4f4f4;
   }
   

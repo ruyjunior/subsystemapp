@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import UserService from '../services/UserService';
-import '../pages/styles/Usuarios.css'; 
+import '../pages/styles/Users.css'; 
 
 
 const UserForm = ({ userToEdit, onSave }) => {

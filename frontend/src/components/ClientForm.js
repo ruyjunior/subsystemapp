@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ClientService from '../services/ClientService';
-import '../pages/styles/Clientes.css'; 
+import '../pages/styles/Clients.css'; 
 
 
 const ClientForm = ({ clientToEdit, onSave }) => {
@@ -10,8 +10,8 @@ const ClientForm = ({ clientToEdit, onSave }) => {
     mat: '',
     cpf: '',
     name: '',
-    birthDate: '',
     birth: '',
+    birthDate: '',
     email: '',
     phone: '',
     phone2: '',
@@ -25,7 +25,21 @@ const ClientForm = ({ clientToEdit, onSave }) => {
 
   useEffect(() => {
     if (clientToEdit) {
-      setFormData(clientToEdit);
+      //setFormData(clientToEdit);
+      setFormData({...formData, 
+        mat: clientToEdit.mat,
+        cpf: clientToEdit.cpf,
+        name: clientToEdit.name,
+        birth: clientToEdit.birth,
+        birthDate: convertDateToRegularFormat(clientToEdit.birth),
+        email: clientToEdit.email,
+        phone: clientToEdit.phone,
+        phone2: clientToEdit.phone2,
+        address:clientToEdit.address,
+        city:clientToEdit.city,
+        state:clientToEdit.state,
+        cep:clientToEdit.cep,
+        idLotation: clientToEdit.idLotation});
     }
   }, [clientToEdit]);
 
@@ -48,7 +62,7 @@ const ClientForm = ({ clientToEdit, onSave }) => {
     if (value.length > 5) value = value.replace(/(\d{2})\/(\d{2})(\d)/, "$1/$2/$3"); // Insere a barra após o mês
     value = value.substring(0, 10); // Limita o comprimento a 10 caracteres (DD/MM/AAAA)
     const formattedDate = convertDateToMySQLFormat(value);
-    setFormData({ ...formData, birthDate: value, birth: formattedDate }); // Atualiza o estado com a data formatada
+    setFormData({ ...formData, birthDate: value, birth: formattedDate}); // Atualiza o estado com a data formatada
   };
   /*Manipulação para CEP*/
   const handleCEPChange = (event) => {
@@ -80,6 +94,11 @@ const ClientForm = ({ clientToEdit, onSave }) => {
     const [day, month, year] = date.split("/");
     return `${year}-${month}-${day}`;
   };
+  const convertDateToRegularFormat = (date) => {
+    if (!date) return "";
+    const [year, month, day] = date.split("-");
+    return `${day}/${month}/${year}`;
+  };
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -92,7 +111,7 @@ const ClientForm = ({ clientToEdit, onSave }) => {
       }
       onSave();
       setFormData({ id: '', mat: '', cpf: '',
-                  name: '', birth: '', email:'',
+                  name: '', birth: '', birthDate: '', email:'',
                   phone:'', phone2:'', address:'',
                   city:'', state:'', cep:'', idLotation:'' });
       setErrorMessage('');
@@ -147,7 +166,7 @@ const ClientForm = ({ clientToEdit, onSave }) => {
             placeholder="DD/MM/AAAA"
             value={formData.birthDate}
             onChange={handleBirthChange}
-            //pattern="\d{2}\/\d{2}\/\d{4}"
+            pattern="\d{2}\/\d{2}\/\d{4}"
             title="Digite a data de nascimento no formato: DD/MM/AAAA"
             required
             maxLength="12"

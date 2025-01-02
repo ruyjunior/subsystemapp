@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../services/dbService'); // Importa o serviço de banco de dados
 
 // Rota para buscar usuários
-router.get('/usuarios', async (req, res) => {
+router.get('/users', async (req, res) => {
   try {
     const query = 'SELECT id, username, name, level, cpf FROM users';
     const [users] = await db.promise().execute(query);
@@ -17,7 +17,7 @@ router.get('/usuarios', async (req, res) => {
 });
 
 // Criar um novo usuário
-router.post('/usuarios', async (req, res) => {
+router.post('/users', async (req, res) => {
   const { username, name, level, password, cpf } = req.body;
   try {
     const query = 'INSERT INTO users (username, name, level, password, cpf) VALUES (?, ?, ?, ?, ?)';
@@ -30,7 +30,7 @@ router.post('/usuarios', async (req, res) => {
 });
 
 // Atualizar um usuário
-router.put('/usuarios/:id', async (req, res) => {
+router.put('/users/:id', async (req, res) => {
   const { id } = req.params;
   const { username, name, level, password, cpf } = req.body;
   try {
@@ -44,7 +44,7 @@ router.put('/usuarios/:id', async (req, res) => {
 });
 
 // Deletar um usuário
-router.delete('/usuarios/:id', async (req, res) => {
+router.delete('/users/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const query = 'DELETE FROM users WHERE id = ?';

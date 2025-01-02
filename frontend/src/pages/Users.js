@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
 import axios from 'axios';
-import './styles/Usuarios.css'; 
+import './styles/Users.css'; 
 //import UserList from '../components/UserList';
 import UserForm from '../components/UserForm';
 import UserService from '../services/UserService';
 
 
-const API_URL = 'http://localhost:5000/api/usuarios';
+const API_URL = 'http://localhost:5000/api/users';
 
-function Usuarios() {
+function Users() {
   const [users, setUsers] = useState([]);
   const [userToEdit, setUserToEdit] = useState(null);
   const [error, setError] = useState('');
@@ -51,8 +51,8 @@ function Usuarios() {
   };
     
   return (
-    <div className="usuarios-page">
-      <h1>Novo Usuário</h1>
+    <div className="users-page">
+      <h1>USUÁRIOS</h1>
 
       {currentUser.level === 'admin' ? (  <>
       <UserForm userToEdit={userToEdit} onSave={handleSave} />
@@ -62,7 +62,7 @@ function Usuarios() {
 
       <h1>Controle de Usuários</h1>
       {error && <p className="error-message">{error}</p>}
-      <table className="usuarios-table">
+      <table className="users-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -102,4 +102,4 @@ function Usuarios() {
   );
 }
 
-export default Usuarios;
+export default Users;
