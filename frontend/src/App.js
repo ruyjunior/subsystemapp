@@ -58,13 +58,13 @@ function App() {
       <PageLayout user={user}>
         <Routes>
         <Route path="/login"        element={ <Login onLoginSuccess={handleLoginSuccess} onLogout={handleLogout} />} />
-        <Route path="/proposals"    element={ <PrivateRoute> <Proposals /> </PrivateRoute>} />
-        <Route path="/policies"     element={ <PrivateRoute> <Policies  /> </PrivateRoute>} />
-        <Route path="/clients"     element={ <PrivateRoute> <Clients/>   </PrivateRoute>} />
-        <Route path="/companies"     element={ <PrivateRoute> <Companies/>   </PrivateRoute>} />
-        <Route path="/lotations"     element={ <PrivateRoute> <Lotations/>   </PrivateRoute>} />
-        <Route path="/users"     element={ <PrivateRoute> <Users currentUser={user}  /> </PrivateRoute>} />
-        <Route path="/"             element={ <PrivateRoute> <Dashboard /> </PrivateRoute>} />
+        <Route path="/proposals"    element={ <PrivateRoute> <Proposals/>   </PrivateRoute>} />
+        <Route path="/policies"     element={ <PrivateRoute> <Policies/>    </PrivateRoute>} />
+        <Route path="/clients"      element={ <PrivateRoute> <Clients/>     </PrivateRoute>} />
+        <Route path="/companies"    element={ <PrivateRoute> <Companies/>   </PrivateRoute>} />
+        <Route path="/lotations"    element={ <PrivateRoute> <Lotations/>   </PrivateRoute>} />
+        <Route path="/users"        element={ <PrivateRoute> <Users currentUser={user}  /> </PrivateRoute>} />
+        <Route path="/"             element={ <PrivateRoute> <Dashboard/>   </PrivateRoute>} />
         </Routes>
       </PageLayout>
     </Router>

@@ -1,10 +1,10 @@
 import React from 'react';
-import './styles/Pages.css';
+import '../styles/Main.css';
 
 const Dashboard = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   return (
-    <div className="pages">
+    <div className="page">
         <h1>Dashboard</h1>
         {user.level === 'admin' && <p>Acesso avançado ao Dashboard.</p>}
         {user.level === 'oper' && <p>Visualização básica de Dashboard.</p>}

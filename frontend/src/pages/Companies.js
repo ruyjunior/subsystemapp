@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './styles/Companies.css'; 
-import CompanyForm from '../components/CompanyForm';
-import CompanyService from '../services/CompanyService';
+import '../styles/Main.css';
+import CompanyForm from '../components/forms/CompanyForm';
+import DBService from '../services/DBService';
 
 const API_URL = 'http://localhost:5000/api/companies';
 
@@ -25,7 +25,7 @@ function Companies() {
 
   const handleDelete = async (id) => {
     try {
-      await CompanyService.delete(id);
+      await DBService.delete(API_URL, id);
       fetchCompanies();
     } catch (error) {
       console.error('Erro ao deletar Empresas:', error);
@@ -46,19 +46,18 @@ function Companies() {
   };
     
   return (
-    <div className="companies-page">
-      <h2>EMPRESAS</h2>
+    <div className="page">
+      <h1>EMPRESAS</h1>
       {currentUser.level === 'admin' ? (  <>
       <CompanyForm companyToEdit={companyToEdit} onSave={handleSave} />
       </>) : (
         <span>Sem previlégios!</span>
       )}
-      
+      <h2>Controle de Empresas</h2>
       {error && <p className="error-message">{error}</p>}
-      <table className="companies-table">
+      <table className="table">
         <thead>
           <tr>
-            <th>ID</th>
             <th>NOME</th>
             <th>CNPJ</th>
             <th>Controle</th>
@@ -67,7 +66,6 @@ function Companies() {
         <tbody>
           {companies.map((company) => (
               <tr key={company.id}>
-                <td>{company.id}</td>
                 <td>{company.name}</td>
                 <td>{company.cnpj}</td>
                 <td>

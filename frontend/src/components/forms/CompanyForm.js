@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import CompanyService from '../services/CompanyService';
-import '../pages/styles/Companies.css'; 
-
+import DBService from '../../services/DBService';
+import '../../styles/Main.css';
+const API_URL = 'http://localhost:5000/api/companies';
 
 const CompanyForm = ({ companyToEdit, onSave }) => {
   const currentUser = JSON.parse(localStorage.getItem('user'));
@@ -37,9 +37,9 @@ const CompanyForm = ({ companyToEdit, onSave }) => {
     console.log(formData);
     try {
       if ((companyToEdit || currentUser.level !== 'admin')) {
-        await CompanyService.update(companyToEdit.id, formData);
+        await DBService.update(API_URL, companyToEdit.id, formData);
       } else {
-        await CompanyService.create(formData);
+        await DBService.create( API_URL, formData);
       }
       onSave();
       setFormData({ id: '', name: '', cnpj: '' });
@@ -57,34 +57,31 @@ const CompanyForm = ({ companyToEdit, onSave }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ flex: 1 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', alignItems: 'flex-start' }}> 
-        <div style={{ border: '5px solid #ccc', padding: '10px', width: '50%' }}>
-            <h2>{companyToEdit || currentUser.level !== 'admin'  ? 'Editar Empresa' : 'Criar Empresa'}</h2>
-            <input
-              type="text"
-              name="name"
-              placeholder="NOME FANTASIA"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="cnpj"
-              placeholder="CNPJ"
-              value={formData.cnpj}
-              onChange={handleCNPJChange}
-              pattern="\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}"
-              maxLength="18"
-              required
-            />
-        </div>
-        <button type="submit" style={{ marginTop: '20px' }}>Salvar</button>
-        {errorMessage && <div style={{ color: 'red', marginTop: '10px' }}>{errorMessage}</div>}
-      </div>
+    <form onSubmit={handleSubmit} className='form'>
+        <h3>{companyToEdit || currentUser.level !== 'admin'  ? 'Editar Empresa' : 'Cadastrar Empresa'}</h3>
+        <input
+          type="text"
+          name="name"
+          placeholder="NOME FANTASIA"
+          title="Digite o nome fantasia da empresa"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="cnpj"
+          placeholder="CNPJ"
+          title="Digite o cnpj da empresa"
+          value={formData.cnpj}
+          onChange={handleCNPJChange}
+          pattern="\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}"
+          maxLength="18"
+          required
+        />
+        <button type="submit" >Salvar</button>
+        {errorMessage && <div>{errorMessage}</div>}
     </form>
-  
   )
 };
 

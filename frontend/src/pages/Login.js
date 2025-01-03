@@ -1,4 +1,4 @@
-import './styles/Login.css'; // Importa o arquivo de estilos
+import '../styles/Main.css';
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -6,12 +6,12 @@ function Login({ onLoginSuccess, onLogout }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState(''); // Estado para mensagem de sucesso
+  const [successMessage, setSuccessMessage] = useState(''); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage(''); // Limpa mensagens anteriores
-    setSuccessMessage(''); // Limpa mensagens anteriores
+    setErrorMessage(''); 
+    setSuccessMessage(''); 
     try {
       const response = await axios.post('http://localhost:5000/api/login', {
         username,
@@ -33,14 +33,14 @@ function Login({ onLoginSuccess, onLogout }) {
   };
 
   return (
-    <div className="login-page">
+    <div className="page">
       <form onSubmit={handleSubmit}>
-       
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
+      <h1>Login</h1>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
         {successMessage && <p className="success-message">{successMessage}</p>}
         {!localStorage.token && (
           <>
-            <h2>Login</h2>
+            <h2>Insira Usuário e Senha </h2>
             <input
               type="text"
               placeholder="Usuário"
@@ -66,5 +66,4 @@ function Login({ onLoginSuccess, onLogout }) {
     </div>
   );
 }
-
 export default Login;

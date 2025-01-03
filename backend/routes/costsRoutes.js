@@ -5,7 +5,7 @@ const db = require('../services/dbService'); // Importa o serviço de banco de d
 // Buscar
 router.get('/costs', async (req, res) => {
   try {
-    const query = 'SELECT id, valueTitular, valueTitularCouple, idPlan, idPolicie FROM costs';
+    const query = 'SELECT id, age, valueTitular, valueTitularCouple, idPlan, idPolicie FROM costs';
     const [data] = await db.promise().execute(query);
 
     res.json(data);
@@ -18,10 +18,10 @@ router.get('/costs', async (req, res) => {
 
 // Criar
 router.post('/costs', async (req, res) => {
-  const { valueTitular, valueTitularCouple, idPlan, idPolicie } = req.body;
+  const { age, valueTitular, valueTitularCouple, idPlan, idPolicie } = req.body;
   try {
-    const query = 'INSERT INTO costs (valueTitular, valueTitularCouple, idPlan, idPolicie) VALUES (?, ?, ?, ?)';
-    const [result] = await db.promise().execute(query, [valueTitular, valueTitularCouple, idPlan, idPolicie ]);
+    const query = 'INSERT INTO costs (age, valueTitular, valueTitularCouple, idPlan, idPolicie) VALUES (?, ?, ?, ?, ?)';
+    const [result] = await db.promise().execute(query, [age, valueTitular, valueTitularCouple, idPlan, idPolicie ]);
     res.status(201).json({ message: 'cost criado com sucesso.', costId: result.insertId });
   } catch (err) {
     console.error('Erro ao criar cost:', err);
@@ -32,10 +32,10 @@ router.post('/costs', async (req, res) => {
 // Atualizar
 router.put('/costs/:id', async (req, res) => {
   const { id } = req.params;
-  const { valueTitular, valueTitularCouple, idPlan, idPolicie } = req.body;
+  const { age, valueTitular, valueTitularCouple, idPlan, idPolicie } = req.body;
   try {
-    const query = 'UPDATE costs SET mat = ?, cpf = ?, name = ?, birth = ?, email = ?, phone = ?, phone2 = ?, address=?, city=?, state=?, cep=?, idLotation=? WHERE id = ?';
-    await db.promise().execute(query, [valueTitular, valueTitularCouple, idPlan, idPolicie, id]);
+    const query = 'UPDATE costs SET age=?, valueTitular=?, valueTitularCouple=?, idPlan=?, idPolicie=? WHERE id = ?';
+    await db.promise().execute(query, [age, valueTitular, valueTitularCouple, idPlan, idPolicie, id]);
     res.json({ message: 'cost atualizado com sucesso.' });
   } catch (err) {
     console.error('Erro ao atualizar cost:', err);

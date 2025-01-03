@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './styles/Lotations.css'; 
-import LotationForm from '../components/LotationForm';
-import LotationService from '../services/LotationService';
+import '../styles/Main.css';
+import LotationForm from '../components/forms/LotationForm';
+import DBService from '../services/DBService';
 
 const API_URL = 'http://localhost:5000/api/lotations';
 
@@ -25,7 +25,7 @@ function Lotations() {
 
   const handleDelete = async (id) => {
     try {
-      await LotationService.delete(id);
+      await DBService.delete( API_URL, id);
       fetchLotations();
     } catch (error) {
       console.error('Erro ao deletar Empresas:', error);
@@ -46,19 +46,18 @@ function Lotations() {
   };
     
   return (
-    <div className="lotations-page">
-      <h2>LOTAÇÕES</h2>
+    <div className="page">
+      <h1>LOTAÇÕES</h1>
       {currentUser.level === 'admin' ? (  <>
       <LotationForm LotationToEdit={LotationToEdit} onSave={handleSave} />
       </>) : (
         <span>Sem previlégios!</span>
       )}
-      
+      <h2>Controle de Lotações</h2>
       {error && <p className="error-message">{error}</p>}
-      <table className="lotations-table">
+      <table className="table">
         <thead>
           <tr>
-            <th>ID</th>
             <th>NOME</th>
             <th>Controle</th>
           </tr>
@@ -66,7 +65,6 @@ function Lotations() {
         <tbody>
           {lotations.map((Lotation) => (
               <tr key={Lotation.id}>
-                <td>{Lotation.id}</td>
                 <td>{Lotation.name}</td>
                 <td>
                   {currentUser.level === 'admin' && (

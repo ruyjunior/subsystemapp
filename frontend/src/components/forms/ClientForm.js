@@ -1,31 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import ClientService from '../services/ClientService';
-import '../pages/styles/Clients.css'; 
+import '../../styles/Main.css';
+import DBService from '../../services/DBService';
+const API_URL = 'http://localhost:5000/api/clients';
 
-
-const ClientForm = ({ clientToEdit, onSave }) => {
+const ClientForm = ({ lotations, clientToEdit, onSave }) => {
   const currentUser = JSON.parse(localStorage.getItem('user'));
   const [formData, setFormData] = useState({
-    id: '',
-    mat: '',
-    cpf: '',
-    name: '',
-    birth: '',
-    birthDate: '',
-    email: '',
-    phone: '',
-    phone2: '',
-    address:'',
-    city:'',
-    state:'',
-    cep:'',
+    id: '', mat: '', cpf: '', name: '', birth: '', birthDate: '', email: '',
+    phone: '', phone2: '', address:'', city:'', state:'',  cep:'',
     idLotation: ''
   });
   const [errorMessage, setErrorMessage] = useState(''); 
 
   useEffect(() => {
     if (clientToEdit) {
-      //setFormData(clientToEdit);
       setFormData({...formData, 
         mat: clientToEdit.mat,
         cpf: clientToEdit.cpf,
@@ -102,12 +90,12 @@ const ClientForm = ({ clientToEdit, onSave }) => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData.birth);
     try {
       if ((clientToEdit || currentUser.level !== 'admin')) {
-        await ClientService.updateClient(clientToEdit.id, formData);
+        //await ClientService.update(clientToEdit.id, formData);
+        await DBService.update(API_URL, clientToEdit.id, formData);
       } else {
-        await ClientService.createClient(formData);
+        await DBService.create(API_URL, formData);
       }
       onSave();
       setFormData({ id: '', mat: '', cpf: '',
@@ -129,16 +117,17 @@ const ClientForm = ({ clientToEdit, onSave }) => {
 
   return (
     <form onSubmit={handleSubmit} style={{ flex: 1 }}>
-      <h2>{clientToEdit || currentUser.level !== 'admin'  ? 'Editar Cliente' : 'Criar Cliente'}</h2>
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', alignItems: 'flex-start' }}> 
+      <h3>{clientToEdit || currentUser.level !== 'admin'  ? 'Editar Cliente' : 'Cadastrar Cliente'}</h3>
+      <div className='divmain' > 
        {/* Seção 1 */}
-       <div style={{ border: '5px solid #ccc', padding: '10px', width: '30%' }}>
+       <div className='divsec'>
           <input
             type="text"
             name="mat"
             placeholder="Matricula"
             value={formData.mat}
             onChange={handleChange}
+            title="Digite a matrícula do Cliente"
             required
           />
           <input
@@ -155,15 +144,16 @@ const ClientForm = ({ clientToEdit, onSave }) => {
           <input
             type="text"
             name="name"
-            placeholder="Name"
+            placeholder="Nome Completo"
             value={formData.name}
             onChange={handleChange}
+            title="Digite o nome completo do cliente"
             required
           />
           <input
             type="text"
             name="birth"
-            placeholder="DD/MM/AAAA"
+            placeholder="Nascimento: DD/MM/AAAA"
             value={formData.birthDate}
             onChange={handleBirthChange}
             pattern="\d{2}\/\d{2}\/\d{4}"
@@ -173,11 +163,11 @@ const ClientForm = ({ clientToEdit, onSave }) => {
           />
         </div>
         {/* Seção 2 */}
-        <div style={{ border: '5px solid #ccc', padding: '10px', width: '30%' }}>
+        <div className='divsec'>
           <input
             type="email"
             name="email"
-            placeholder="EMAIL"
+            placeholder="Email"
             value={formData.email}
             onChange={handleChange}
             title="Digite um email válido, como exemplo@dominio.com"
@@ -186,7 +176,7 @@ const ClientForm = ({ clientToEdit, onSave }) => {
           <input
             type="text"
             name="phone"
-            placeholder="(xx) 12345-6789"
+            placeholder="(DDD) 12345-6789"
             value={formData.phone}
             onChange={handlePhoneChange}
             pattern="\(\d{2}\) \d{4,5}-\d{4}"
@@ -197,7 +187,7 @@ const ClientForm = ({ clientToEdit, onSave }) => {
           <input
             type="text"
             name="phone2"
-            placeholder="(xx) 12345-6789"
+            placeholder="(DDD) 12345-6789"
             value={formData.phone2}
             onChange={handlePhoneChange}
             pattern="\(\d{2}\) \d{4,5}-\d{4}"
@@ -216,11 +206,11 @@ const ClientForm = ({ clientToEdit, onSave }) => {
           />
         </div>
           {/* Seção 3 */}
-          <div style={{ border: '5px solid #ccc', padding: '10px', width: '30%' }}>
+          <div className='divsec'>
           <input
             type="text"
             name="cep"
-            placeholder="CEP (12345-678)"
+            placeholder="CEP: 12345-678"
             value={formData.cep}
             onChange={handleCEPChange}
             pattern="\d{5}-\d{3}"
@@ -247,22 +237,26 @@ const ClientForm = ({ clientToEdit, onSave }) => {
             title="Digite apenas as duas letras do Estado ex: Bahia: BA"
             maxLength="2"
           />
-          <input
+          <select className='select'
             type="text"
             name="idLotation"
             placeholder="ID da Lotação"
             value={formData.idLotation}
             onChange={handleChange}
-            title="Digite o ID da Lotaçãio"
             required
-          />
+          >
+            <option value="" disabled>Locação: Selecione</option>
+            {lotations.map((lotation) => (
+              <option key={lotation.id} value={lotation.id}>
+                {lotation.name}
+            </option>
+          ))}
+          </select>
        </div>
        </div>
       <button type="submit" style={{ marginTop: '20px' }}>Salvar</button>
       {errorMessage && <div style={{ color: 'red', marginTop: '10px' }}>{errorMessage}</div>}
     </form>
-  
   )
 };
-
 export default ClientForm;

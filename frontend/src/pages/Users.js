@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 import axios from 'axios';
-import './styles/Users.css'; 
-//import UserList from '../components/UserList';
-import UserForm from '../components/UserForm';
-import UserService from '../services/UserService';
+import '../styles/Main.css';
+import UserForm from '../components/forms/UserForm';
+import DBService from '../services/DBService';
 
 
 const API_URL = 'http://localhost:5000/api/users';
@@ -30,7 +29,7 @@ function Users() {
 
   const handleDelete = async (id) => {
     try {
-      await UserService.deleteUser(id);
+      await DBService.delete(API_URL, id);
       fetchUsers();
     } catch (error) {
       console.error('Erro ao deletar usuário:', error);
@@ -51,9 +50,8 @@ function Users() {
   };
     
   return (
-    <div className="users-page">
+    <div className="page">
       <h1>USUÁRIOS</h1>
-
       {currentUser.level === 'admin' ? (  <>
       <UserForm userToEdit={userToEdit} onSave={handleSave} />
       </>) : (
@@ -62,12 +60,12 @@ function Users() {
 
       <h1>Controle de Usuários</h1>
       {error && <p className="error-message">{error}</p>}
-      <table className="users-table">
+      <table className="table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Usuário</th>
-            <th>Nome</th>
+            {/*<th>ID</th>*/}
+            <th>Login</th>
+            <th>Nome Completo</th>
             <th>CPF</th>
             <th>Nível</th>
             <th>Controle</th>
@@ -76,7 +74,7 @@ function Users() {
         <tbody>
           {users.map((user) => (
             <tr key={user.id}>
-              <td>{user.id}</td>
+              {/*<td>{user.id}</td>*/}
               <td>{user.username}</td>
               <td>{user.name}</td>
               <td>{user.cpf}</td>

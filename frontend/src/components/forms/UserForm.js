@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import UserService from '../services/UserService';
-import '../pages/styles/Users.css'; 
+import DBService from '../../services/DBService';
+import '../../styles/Main.css';
+const API_URL = 'http://localhost:5000/api/users';
 
 
 const UserForm = ({ userToEdit, onSave }) => {
@@ -39,9 +40,9 @@ const UserForm = ({ userToEdit, onSave }) => {
     console.log('Formulário: ' + formData);
     try {
       if ((userToEdit || currentUser.level !== 'admin')) {
-        await UserService.updateUser(userToEdit.id, formData);
+        await DBService.update(API_URL, userToEdit.id, formData);
       } else {
-        await UserService.createUser(formData);
+        await DBService.create(API_URL, formData);
       }
       onSave();
       setFormData({ username: '', name: '', level: '', password: '', cpf: '' });
@@ -60,11 +61,11 @@ const UserForm = ({ userToEdit, onSave }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>{userToEdit || currentUser.level !== 'admin'  ? 'Editar Usuário' : 'Criar Usuário'}</h2>
+      <h3>{userToEdit || currentUser.level !== 'admin'  ? 'Editar Usuário' : 'Cadastrar Usuário'}</h3>
       <input
         type="text"
         name="username"
-        placeholder="Username"
+        placeholder="Login"
         value={formData.username}
         onChange={handleChange}
         required
@@ -72,7 +73,7 @@ const UserForm = ({ userToEdit, onSave }) => {
       <input
         type="text"
         name="name"
-        placeholder="Nome"
+        placeholder="Nome Completo"
         value={formData.name}
         onChange={handleChange}
         required
@@ -88,7 +89,7 @@ const UserForm = ({ userToEdit, onSave }) => {
         required
         maxLength="14"
       />
-      <select className='selectLevel'
+      <select className='select'
         type="text"
         name="level"
         placeholder="Nível"
@@ -98,7 +99,7 @@ const UserForm = ({ userToEdit, onSave }) => {
       >
         <option value={'admin'}>Adminastrador</option>
         <option value={'oper'}>Operador</option>
-        </select>
+      </select>
       
       <input
         type="password"

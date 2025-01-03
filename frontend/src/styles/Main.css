@@ -1,0 +1,129 @@
+.page {
+    padding: 20px;
+    display: flex;
+    flex: 1;
+    margin-top: 60px; /* Espaço para o Header fixo */
+    overflow: hidden;
+    margin-left: 110px;
+    background-color:rgb(143, 128, 128);
+    flex-direction: column;
+    min-height: calc(90vh - 60px); /* Altura disponível menos o Header */
+    padding-left: 20px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .table th,
+  .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #f4f4f4;
+  }
+  
+  .error-message {
+    color: red;
+    margin-top: 10px;
+  }
+
+  .select{
+    width: 220px;        /* Largura */
+    height: 40px;        /* Altura */
+    padding: 5px;       /* Espaçamento interno */
+    font-size: 13px;     /* Tamanho da fonte */
+    border: 2px solid #ccc; /* Borda */
+    border-radius: 5px;  /* Cantos arredondados */
+    background-color: #f0f0f0; /* Cor de fundo */
+    color: #333;         /* Cor do texto */
+    cursor: pointer;     /* Cursor ao passar o mouse */
+  }
+  
+  option {
+    padding: 10px;        /* Espaçamento dentro das opções */
+    background-color: #fff; /* Cor de fundo das opções */
+    color: #000000;           /* Cor do texto das opções */
+  }
+  
+  /* Estilizando o select quando o mouse passar por cima */
+  .select:hover {
+    border-color: #000000; /* Cor da borda ao passar o mouse */
+  }
+
+  .select:focus {
+    border-color: #d60f0f;  /* Cor da borda ao focar */
+    outline: none;           /* Remove o contorno padrão */
+  }
+
+  .divmain {
+    display: flex;
+    justify-Content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .divsec{
+    border: 5px solid #ccc;
+    padding: 10px;
+    width: 30%; 
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  form input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  form button:hover {
+    background-color: #0056b3;
+  }
+
+
+  /* Estilização do botão de logout */
+.logout-container {
+  margin-top: 20px;
+  text-align: center;
+  width: 100%; /* Garante alinhamento central */
+}
+
+.logout-button {
+  padding: 10px 20px;
+  background-color: #dc3545; /* Vermelho para logout */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  width: 200px; /* Mesmo tamanho dos botões no formulário */
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #a71d2a;
+}
+.logout-mensage{
+ font-size: 20px;
+  padding-bottom: 10px;
+}
