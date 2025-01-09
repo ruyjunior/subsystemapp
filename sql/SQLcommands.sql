@@ -4,5 +4,5 @@ select * from costs;
 select * from lotation; 
 select * from plans; 
 select * from policies; 
-select * from proposal; 
+select * from proposals; 
 select * from users; 

@@ -131,7 +131,7 @@ function Policies() {
           <PlanForm planToEdit={planToEdit} onSave={handleSavePlan} plans={plans}/>
         </div>
         <div className='divsec'>
-          <CostForm costToEdit={costToEdit} onSave={handleSaveCost} costs={costs}/>
+          <CostForm costToEdit={costToEdit} onSave={handleSaveCost} costs={costs} policies={policies}/>
         </div>
           </>) : (
         <span>Sem previlégios!</span>
@@ -177,6 +177,7 @@ function Policies() {
         <thead>
           <tr>
             <th>ID</th>
+            <th>Linha</th>
             <th>Morte</th>
             <th>Morte/Acidente</th>
             <th>Invalidez/Acidente</th>
@@ -192,6 +193,7 @@ function Policies() {
           return (
             <tr key={plan.id}>
               <td>{plan.id}</td>
+              <td>{plan.number}</td>
               <td>{plan.valueDeath}</td>
               <td>{plan.valueDeathAccident}</td>
               <td>{plan.valueInvalidityAccident}</td>
@@ -222,7 +224,7 @@ function Policies() {
             <th>Faixa de Idade</th>
             <th>Titular</th>
             <th>Titular+Conjuge</th>
-            <th>Plano</th>
+            <th>Linha Plano</th>
             <th>Apólice</th>
             <th>Controle</th>
           </tr>
@@ -235,7 +237,7 @@ function Policies() {
               <td>{cost.age}</td>
               <td>{cost.valueTitular}</td>
               <td>{cost.valueTitularCouple}</td>
-              <td>{cost.idPlan}</td>
+              <td>{cost.numberPlan}</td>
               <td>{cost.idPolicie}</td>
               <td>
                 {currentUser.level === 'admin' && (

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../services/dbService'); // Importa o serviço de banco de dados
 
-// Buscar
+// Buscar todos
 router.get('/clients', async (req, res) => {
   try {
     const query = 'SELECT id, mat, cpf, name, birth, email, phone, phone2, address, city, state, cep, idLotation FROM clients';
@@ -13,6 +13,25 @@ router.get('/clients', async (req, res) => {
   } catch (err) {
     console.error('Erro ao buscar clients:', err);
     res.status(500).json({ message: 'Erro ao buscar clients.' });
+  }
+});
+
+// Buscar Um
+router.get('/clients/:mat', async (req, res) => {
+  try {
+    const { mat } = req.params; // Captura a Matricula da URL
+    const query = 'SELECT id, mat, cpf, name, birth, email, phone, phone2, address, city, state, cep, idLotation FROM clients WHERE mat = ?';
+    const [client] = await db.promise().execute(query, [mat]); // Passa o ID como parâmetro
+
+    if (client.length === 0) {
+      return res.status(404).json({ message: 'Cliente não encontrado.' });
+    }
+
+    res.json(client[0]); // Retorna o cliente encontrado
+    console.log('Cliente:', client[0]);
+  } catch (err) {
+    console.error('Erro ao buscar cliente:', err);
+    res.status(500).json({ message: 'Erro ao buscar Cliente.' });
   }
 });
 

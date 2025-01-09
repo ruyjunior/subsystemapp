@@ -6,7 +6,8 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
-    "mysql2": "^3.11.5"
+    "mysql2": "^3.11.5",
+    "pdfkit": "^0.16.0"
   },
   "name": "backend",
   "version": "1.0.0",

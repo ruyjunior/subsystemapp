@@ -5,7 +5,7 @@ const db = require('../services/dbService'); // Importa o serviço de banco de d
 // Buscar
 router.get('/plans', async (req, res) => {
   try {
-    const query = 'SELECT id, valueDeath, valueDeathAccident, valueInvalidityAccident, valueInvaliditySickness, valueMonthlyLot, valueSAF, idPolicie   FROM plans';
+    const query = 'SELECT id, number, valueDeath, valueDeathAccident, valueInvalidityAccident, valueInvaliditySickness, valueMonthlyLot, valueSAF, idPolicie   FROM plans';
     const [data] = await db.promise().execute(query);
 
     res.json(data);
@@ -18,10 +18,10 @@ router.get('/plans', async (req, res) => {
 
 // Criar
 router.post('/plans', async (req, res) => {
-  const {valueDeath, valueDeathAccident, valueInvalidityAccident, valueInvaliditySickness, valueMonthlyLot, valueSAF, idPolicie } = req.body;
+  const {number, valueDeath, valueDeathAccident, valueInvalidityAccident, valueInvaliditySickness, valueMonthlyLot, valueSAF, idPolicie } = req.body;
   try {
-    const query = 'INSERT INTO plans (valueDeath, valueDeathAccident, valueInvalidityAccident, valueInvaliditySickness, valueMonthlyLot, valueSAF, idPolicie) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    const [result] = await db.promise().execute(query, [valueDeath, valueDeathAccident, valueInvalidityAccident, valueInvaliditySickness, valueMonthlyLot, valueSAF, idPolicie ]);
+    const query = 'INSERT INTO plans (number, valueDeath, valueDeathAccident, valueInvalidityAccident, valueInvaliditySickness, valueMonthlyLot, valueSAF, idPolicie) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    const [result] = await db.promise().execute(query, [number, valueDeath, valueDeathAccident, valueInvalidityAccident, valueInvaliditySickness, valueMonthlyLot, valueSAF, idPolicie ]);
     res.status(201).json({ message: 'plano criado com sucesso.', clientId: result.insertId });
   } catch (err) {
     console.error('Erro ao criar plano:', err);
@@ -32,10 +32,10 @@ router.post('/plans', async (req, res) => {
 // Atualizar
 router.put('/plans/:id', async (req, res) => {
   const { id } = req.params;
-  const { valueDeath, valueDeathAccident, valueInvalidityAccident, valueInvaliditySickness, valueMonthlyLot, valueSAF, idPolicie } = req.body;
+  const {number, valueDeath, valueDeathAccident, valueInvalidityAccident, valueInvaliditySickness, valueMonthlyLot, valueSAF, idPolicie } = req.body;
   try {
-    const query = 'UPDATE plans SET valueDeath=?, valueDeathAccident=?, valueInvalidityAccident=?, valueInvaliditySickness=?, valueMonthlyLot=?, valueSAF=?, idPolicie=? WHERE id = ?';
-    await db.promise().execute(query, [valueDeath, valueDeathAccident, valueInvalidityAccident, valueInvaliditySickness, valueMonthlyLot, valueSAF, idPolicie, id]);
+    const query = 'UPDATE plans SET number=?, valueDeath=?, valueDeathAccident=?, valueInvalidityAccident=?, valueInvaliditySickness=?, valueMonthlyLot=?, valueSAF=?, idPolicie=? WHERE id = ?';
+    await db.promise().execute(query, [number, valueDeath, valueDeathAccident, valueInvalidityAccident, valueInvaliditySickness, valueMonthlyLot, valueSAF, idPolicie, id]);
     res.json({ message: 'plano atualizado com sucesso.' });
   } catch (err) {
     console.error('Erro ao atualizar plano:', err);

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../services/dbService'); // Importa o serviço de banco de dados
 
-// Buscar
+// Buscar todos
 router.get('/policies', async (req, res) => {
   try {
     const query = 'SELECT id, number, idCompany FROM policies';
@@ -13,6 +13,21 @@ router.get('/policies', async (req, res) => {
   } catch (err) {
     console.error('Erro ao buscar policies:', err);
     res.status(500).json({ message: 'Erro ao buscar policies.' });
+  }
+});
+
+// Buscar um
+router.get('/policies/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const query = 'SELECT id, number, idCompany FROM policies  WHERE id = ?';
+    const [data] = await db.promise().execute(query, [id]);
+
+    res.json(data[0]);
+    console.log('Policie:', data[0]);
+  } catch (err) {
+    console.error('Erro ao buscar Policie:', err);
+    res.status(500).json({ message: 'Erro ao buscar Policie.' });
   }
 });
 

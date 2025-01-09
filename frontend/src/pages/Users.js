@@ -8,7 +8,7 @@ import DBService from '../services/DBService';
 
 const API_URL = 'http://localhost:5000/api/users';
 
-function Users() {
+function Users(user) {
   const [users, setUsers] = useState([]);
   const [userToEdit, setUserToEdit] = useState(null);
   const [error, setError] = useState('');

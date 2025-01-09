@@ -14,6 +14,7 @@ import Lotations from './pages/Lotations';
 import Users from './pages/Users';
 import Login from './pages/Login';
 import PrivateRoute from './components/PrivateRoute';
+import ProposalPrint from './components/forms/ProposalPrint';
 
 
 const PageLayout = ({ children, user }) => {
@@ -57,14 +58,15 @@ function App() {
     <Router>
       <PageLayout user={user}>
         <Routes>
-        <Route path="/login"        element={ <Login onLoginSuccess={handleLoginSuccess} onLogout={handleLogout} />} />
-        <Route path="/proposals"    element={ <PrivateRoute> <Proposals/>   </PrivateRoute>} />
-        <Route path="/policies"     element={ <PrivateRoute> <Policies/>    </PrivateRoute>} />
-        <Route path="/clients"      element={ <PrivateRoute> <Clients/>     </PrivateRoute>} />
-        <Route path="/companies"    element={ <PrivateRoute> <Companies/>   </PrivateRoute>} />
-        <Route path="/lotations"    element={ <PrivateRoute> <Lotations/>   </PrivateRoute>} />
-        <Route path="/users"        element={ <PrivateRoute> <Users currentUser={user}  /> </PrivateRoute>} />
-        <Route path="/"             element={ <PrivateRoute> <Dashboard/>   </PrivateRoute>} />
+        <Route path="/login"          element={ <Login onLoginSuccess={handleLoginSuccess} onLogout={handleLogout} />} />
+        <Route path="/proposals"      element={ <PrivateRoute> <Proposals/>   </PrivateRoute>} />
+        <Route path="/proposalPrint"  element={ <PrivateRoute> <ProposalPrint/>   </PrivateRoute>} />
+        <Route path="/policies"       element={ <PrivateRoute> <Policies/>    </PrivateRoute>} />
+        <Route path="/clients"        element={ <PrivateRoute> <Clients/>     </PrivateRoute>} />
+        <Route path="/companies"      element={ <PrivateRoute> <Companies/>   </PrivateRoute>} />
+        <Route path="/lotations"      element={ <PrivateRoute> <Lotations/>   </PrivateRoute>} />
+        <Route path="/users"          element={ <PrivateRoute> <Users/>       </PrivateRoute>} />
+        <Route path="/"               element={ <PrivateRoute> <Dashboard/>   </PrivateRoute>} />
         </Routes>
       </PageLayout>
     </Router>

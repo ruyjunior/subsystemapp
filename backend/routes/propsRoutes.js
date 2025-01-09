@@ -7,7 +7,6 @@ router.get('/proposals', async (req, res) => {
   try {
     const query = 'SELECT id, idClient, idUser, idPolicie, idPlan, idCost, timeStamp FROM proposals';
     const [data] = await db.promise().execute(query);
-
     res.json(data);
     console.log('Proposta:', data);
   } catch (err) {
@@ -18,10 +17,10 @@ router.get('/proposals', async (req, res) => {
 
 // Criar
 router.post('/proposals', async (req, res) => {
-  const { idClient, idUser, idPolicie, idPlan, idCost } = req.body;
+  const { dClient, idUser, idPolicie, idPlan, idCost } = req.body;
   try {
-    const query = 'INSERT INTO proposals (idClient, idUser, idPolicie, idPlan, idCost) VALUES (?, ?, ?, ?, ?)';
-    const [result] = await db.promise().execute(query, [idClient, idUser, idPolicie, idPlan, idCost ]);
+    const query = 'INSERT INTO proposals (dClient, idUser, idPolicie, idPlan, idCost) VALUES (?, ?, ?, ?, ?)';
+    const [result] = await db.promise().execute(query, [dClient, idUser, idPolicie, idPlan, idCost ]);
     res.status(201).json({ message: 'Proposta criado com sucesso.', ProposalId: result.insertId });
   } catch (err) {
     console.error('Erro ao criar proposta:', err);

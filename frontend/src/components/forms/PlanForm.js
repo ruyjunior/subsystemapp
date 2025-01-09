@@ -8,6 +8,7 @@ const PlanForm = ({ plans, planToEdit, onSave }) => {
   const currentUser = JSON.parse(localStorage.getItem('user'));
   const [formData, setFormData] = useState({
     id: '',
+    number: '',
     valueDeath:'',
     valueDeathAccident: '',
     valueInvalidityAccident: '',
@@ -41,6 +42,7 @@ const PlanForm = ({ plans, planToEdit, onSave }) => {
       onSave();
       setFormData({
         id: '',
+        number:'',
         valueDeath:'',
         valueDeathAccident: '',
         valueInvalidityAccident: '',
@@ -67,6 +69,16 @@ const PlanForm = ({ plans, planToEdit, onSave }) => {
       <input
         type="text"
         name="number"
+        placeholder="LINHA"
+        title="Digite a Linha da Apolice"
+        value={formData.number}
+        onChange={handleChange}
+        maxLength="2"
+        required
+      />
+      <input
+        type="text"
+        name="number"
         placeholder="VALOR MORTE"
         title="Digite o valor pago por Morte"
         value={formData.valueDeath}
@@ -74,7 +86,7 @@ const PlanForm = ({ plans, planToEdit, onSave }) => {
         maxLength="10"
         required
       />
-            <input
+      <input
         type="text"
         name="number"
         placeholder="VALOR MORTE / ACIDENTE"
@@ -116,7 +128,7 @@ const PlanForm = ({ plans, planToEdit, onSave }) => {
       />
       <input
         type="text"
-        name="number"
+        name="valueSAF"
         placeholder="VALOR SAF"
         title="Digite o valor da SAF Familiar"
         value={formData.valueSAF}

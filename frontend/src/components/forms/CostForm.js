@@ -4,14 +4,14 @@ import '../../styles/Main.css';
 const API_URL = 'http://localhost:5000/api/costs';
 
 
-const CostForm = ({ costs, costToEdit, onSave }) => {
+const CostForm = ({ costs, costToEdit, onSave, policies }) => {
   const currentUser = JSON.parse(localStorage.getItem('user'));
   const [formData, setFormData] = useState({
     id: '',
     age: '',
     valueTitular:'',
     valueTitularCouple:'',
-    idPlan:'', 
+    numberPlan:'', 
     idPolicie:''
   });
   const [errorMessage, setErrorMessage] = useState(''); 
@@ -42,7 +42,7 @@ const CostForm = ({ costs, costToEdit, onSave }) => {
         age: '',
         valueTitular:'',
         valueTitularCouple:'',
-        idPlan:'', 
+        numberPlan:'', 
         idPolicie:''
       });
       setErrorMessage('');
@@ -60,19 +60,45 @@ const CostForm = ({ costs, costToEdit, onSave }) => {
   return (
     <form onSubmit={handleSubmit} >
       <h3>{costToEdit || currentUser.level !== 'admin'  ? 'Editar Custo' : 'Cadastrar Custo'}</h3>
+   
+      <select className='select'
+        name="idPolicie"
+        title="APÓLICIE: Selecione"
+        value={formData.idPolicie}
+        onChange={handleChange}
+        required
+      >
+        <option value="" disabled>Apólices: Selecione</option>
+        {policies.map((policie) => (
+          <option key={policie.id} value={policie.id}>
+            {policie.number}
+          </option>
+        ))}
+      </select>
+
+      <input
+      type="text"
+      name="age"
+      placeholder="FAIXA DE IDADE"
+      title="Digite a faixa de idade"
+      value={formData.age}
+      onChange={handleChange}
+      maxLength="2"
+      required
+      />
       <input
         type="text"
-        name="number"
-        placeholder="FAIXA DE IDADE"
-        title="Digite a faixa de idade"
-        value={formData.age}
+        name="numberPlan"
+        placeholder="LINHA PLANO"
+        title="Digite a linha do Plano"
+        value={formData.numberPlan}
         onChange={handleChange}
         maxLength="2"
         required
       />
       <input
         type="text"
-        name="number"
+        name="valueTitular"
         placeholder="VALOR TITULAR"
         title="Digite o valor do Titular"
         value={formData.valueTitular}
@@ -82,7 +108,7 @@ const CostForm = ({ costs, costToEdit, onSave }) => {
       />
       <input
         type="text"
-        name="number"
+        name="valueTitularCouple"
         placeholder="VALOR TITULAR + CONJUGE"
         title="Digite o valor do Titular + Conjuge"
         value={formData.valueTitularCouple}
