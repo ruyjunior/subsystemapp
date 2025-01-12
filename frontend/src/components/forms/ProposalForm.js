@@ -12,6 +12,7 @@ const ProposalForm = ({ proposalToEdit, onSave, clients, policies, plans, costs 
   const [error, setError] = useState('');
 
   const [formData, setFormData] = useState({
+    number:'',
     idClient: '',
     idUser: '',
     idCost: '',
@@ -41,6 +42,7 @@ const ProposalForm = ({ proposalToEdit, onSave, clients, policies, plans, costs 
       }
       onSave();
       setFormData({  
+        number:'',
         idClient: '',
         idUser: '',
         idCost: '',
@@ -63,6 +65,16 @@ const ProposalForm = ({ proposalToEdit, onSave, clients, policies, plans, costs 
   return (
     <form onSubmit={handleSubmit} style={{ flex: 1 }}>
       <h3>{proposalToEdit || currentUser.level !== 'admin'  ? 'Editar Proposta' : 'Cadastrar Proposta'}</h3>
+      <input
+        type="text"
+        name="number"
+        placeholder="NÚMERO DA PROPOSTA"
+        title="Digite o número da Proposta"
+        value={formData.number}
+        onChange={handleChange}
+        maxLength="20"
+        required
+      />
       <select className='select'
         name="idClient"
         title="Cliente: Selecione"

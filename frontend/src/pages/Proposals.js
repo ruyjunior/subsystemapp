@@ -14,9 +14,12 @@ function Proposals() {
   const [users, setUsers] = useState([]);
   const [plans, setPlans] = useState([]);
   const [costs, setCosts] = useState([]);
+  const [lotations, setLotations] = useState([]);
+  const [companies, setCompanies] = useState([]);
 
   const [error, setError] = useState('');
   const [proposalToEdit, setproposalToEdit] = useState({
+    number:'',
     idClient: '',
     idUser: '',
     idCost: '',
@@ -24,11 +27,14 @@ function Proposals() {
     idPolicie:'',
   });
   const [proposalToPrint, setproposalToPrint] = useState({
-    idClient: '',
-    idUser: '',
-    idCost: '',
-    idPlan:'',
-    idPolicie:'',
+    proposalNumber:'',
+    companieName:'',
+    lotationName:'',
+    client: '',
+    user: '',
+    cost: '',
+    plan:'',
+    policie:'',
   });
   
   const fetchProposals = async () => {
@@ -95,8 +101,27 @@ function Proposals() {
       setError('Erro ao carregar os Usuários.');
     }
   };  
+  const fetchLotations = async () => {
+    try {
+      const response = await axios.get(API_URL + "lotations", {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+      setLotations(response.data);
+    } catch (err) {
+      setError('Erro ao carregar os Lotações.');
+    }
+  };  
+  const fetchCompanies = async () => {
+    try {
+      const response = await axios.get(API_URL + "companies", {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+      setCompanies(response.data);
+    } catch (err) {
+      setError('Erro ao carregar os Companhias.');
+    }
+  };  
 
-  
   const handleDelete = async (id) => {
     try {
       await DBService.delete( API_URL, id);
@@ -113,6 +138,8 @@ function Proposals() {
     fetchPolicies();
     fetchPlans();
     fetchCosts();
+    fetchCompanies();
+    fetchLotations();
   }, []);
   
   const handleEdit = (proposal) => {
@@ -124,7 +151,25 @@ function Proposals() {
     fetchProposals();
   };
   const handlePrint = (proposal) => {
-    setproposalToPrint(proposal);    
+    const client = clients.find(c => c.id === proposal.idClient);
+    const policie = policies.find(c => c.id === proposal.idPolicie);
+    const cost = costs.find(c => c.id === proposal.idCost);
+    const plan = plans.find(c => c.id === proposal.idPlan);
+    const user = users.find(c => c.id === proposal.idUser);
+    const companie = companies.find(c => c.id === policie.idCompany);
+    const lotation = lotations.find(c => c.id === client.idLotation);
+
+    setproposalToPrint(prev => ({...prev, 
+      proposalNumber: proposal.number,
+      lotationName: lotation.name,
+      companieName: companie.name,
+      client: client,
+      policie: policie,
+      cost: cost,
+      plan: plan,
+      user: user,
+    }));    
+    console.log(proposalToPrint);
   }
     
   return (
@@ -146,6 +191,7 @@ function Proposals() {
         <thead>
           <tr>
           <th>ID</th>
+          <th>Número</th>
           <th>Cliente</th>
           <th>Operador</th>
           <th>Num Apólice</th>
@@ -165,6 +211,7 @@ function Proposals() {
             return(
               <tr key={proposal.id}>
                 <td>{proposal.id}</td>
+                <td>{proposal.number}</td>
                 <td>{client ? client.name : 'Cliente não encontrada'}</td>
                 <td>{user ? user.name : 'Usuário não encontrada'}</td>
                 <td>{policie ? policie.number : 'Apólice não encontrada'}</td>
@@ -186,11 +233,7 @@ function Proposals() {
         </tbody>
       </table>
       <ProposalPrint 
-        proposalToPrint={proposalToPrint}
-        clients={clients} 
-        policies={policies}
-        plans={plans}
-        costs={costs}       
+        proposalToPrint={proposalToPrint}      
       />
     </div>
   );

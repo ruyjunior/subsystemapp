@@ -5,7 +5,7 @@ const db = require('../services/dbService'); // Importa o serviço de banco de d
 // Buscar
 router.get('/proposals', async (req, res) => {
   try {
-    const query = 'SELECT id, idClient, idUser, idPolicie, idPlan, idCost, timeStamp FROM proposals';
+    const query = 'SELECT id, number, idClient, idUser, idPolicie, idPlan, idCost, timeStamp FROM proposals';
     const [data] = await db.promise().execute(query);
     res.json(data);
     console.log('Proposta:', data);
@@ -17,10 +17,10 @@ router.get('/proposals', async (req, res) => {
 
 // Criar
 router.post('/proposals', async (req, res) => {
-  const { dClient, idUser, idPolicie, idPlan, idCost } = req.body;
+  const { number, idClient, idUser, idPolicie, idPlan, idCost } = req.body;
   try {
-    const query = 'INSERT INTO proposals (dClient, idUser, idPolicie, idPlan, idCost) VALUES (?, ?, ?, ?, ?)';
-    const [result] = await db.promise().execute(query, [dClient, idUser, idPolicie, idPlan, idCost ]);
+    const query = 'INSERT INTO proposals (number, idClient, idUser, idPolicie, idPlan, idCost) VALUES (?, ?, ?, ?, ?, ?)';
+    const [result] = await db.promise().execute(query, [number, idClient, idUser, idPolicie, idPlan, idCost ]);
     res.status(201).json({ message: 'Proposta criado com sucesso.', ProposalId: result.insertId });
   } catch (err) {
     console.error('Erro ao criar proposta:', err);
@@ -31,10 +31,10 @@ router.post('/proposals', async (req, res) => {
 // Atualizar
 router.put('/proposals/:id', async (req, res) => {
   const { id } = req.params;
-  const { idClient, idUser, idPolicie, idPlan, idCost} = req.body;
+  const { number, idClient, idUser, idPolicie, idPlan, idCost} = req.body;
   try {
-    const query = 'UPDATE proposals SET idClient=?, idUser=?, idPolicie=?, idPlan=?, idCost=? WHERE id = ?';
-    await db.promise().execute(query, [idClient, idUser, idPolicie, idPlan, idCost, id]);
+    const query = 'UPDATE proposals SET number=?, idClient=?, idUser=?, idPolicie=?, idPlan=?, idCost=? WHERE id = ?';
+    await db.promise().execute(query, [number, idClient, idUser, idPolicie, idPlan, idCost, id]);
     res.json({ message: 'proposta atualizado com sucesso.' });
   } catch (err) {
     console.error('Erro ao atualizar proposta:', err);
